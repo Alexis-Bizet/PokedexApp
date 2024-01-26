@@ -1,0 +1,16 @@
+SetEnvIf Request_URI "^http://localhost/PokeApp/public" IS_BACKOFFICE
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*" env=IS_BACKOFFICE
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE" env=IS_BACKOFFICE
+    Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type" env=IS_BACKOFFICE
+    Header always set Access-Control-Max-Age "3600" env=IS_BACKOFFICE
+</IfModule>
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . index.php [L]
+</IfModule>
